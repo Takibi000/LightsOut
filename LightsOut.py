@@ -168,7 +168,7 @@ def reset_btn_draw():
 
 root = tkinter.Tk()
 # ウィンドウのタイトル指定
-root.title("Light Out")
+root.title("Lights Out")
 # ウィンドウの表示位置
 root.geometry("1000x700+200+0")
 # ウィンドウのサイズと背景色の指定
