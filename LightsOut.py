@@ -29,7 +29,7 @@ sx = 500 - (imgx/2)
 sy = 350 - (imgx/2)
 
 # 画像リスト
-img_list = ["Img01.png"]
+img_list = ["Img/Img01.png"]
 
 # タイマー用の変数
 tmr = 0
@@ -182,7 +182,7 @@ root.bind("<Motion>", mouse_move)
 # 画像のファイル指定
 imgphoto = tkinter.PhotoImage(file=random.choice(img_list))
 # 背景画像のファイル指定
-backimg = tkinter.PhotoImage(file="backImg.png")
+backimg = tkinter.PhotoImage(file="img/backImg.png")
 # メッセージボードの画像ファイルを指定
 #msgimg = tkinter.PhotoImage(file="Img.png")
 canvas.pack()
