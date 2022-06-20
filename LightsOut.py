@@ -145,7 +145,7 @@ def draw_p():
 # ライフの描画
 def draw_life():
     canvas.delete("life")
-    canvas.create_text(imgx + 375, imgy - 80, text="LIFE", tag="life", font=("times New Poman", 24), fill="white")
+    canvas.create_text(imgx + 375, imgy - 80, text="LIFE", tag="life", font=("times New Roman", 24), fill="white")
     for n in range(life_count):
         x1 = imgx + 320 + (n * 45)
         y1 = imgy - 35
@@ -169,7 +169,7 @@ def reset_btn_draw():
     canvas.delete("BTN")
     # リセットボタンの描画
     canvas.create_oval(imgx + 300, imgy + 40, imgx + 450, imgy + 120, fill=b_color, outline="white", width=5, tag="BTN")
-    canvas.create_text(imgx + 375, imgy + 80, text="RESET", font=("times New Poman", 20), fill="white", tag="BTN")
+    canvas.create_text(imgx + 375, imgy + 80, text="RESET", font=("times New Roman", 20), fill="white", tag="BTN")
 
 root = tkinter.Tk()
 # ウィンドウのタイトル指定
@@ -194,7 +194,7 @@ canvas.pack()
 # 背景画像の描画
 canvas.create_image(imgx, imgy, image = backimg, tag="main_img")
 #canvas.create_image(imgx + 375, imgy - 50, image = msgimg, tag="main_img")
-canvas.create_text(imgx + 375, imgy - 200, text="TIME", tag="time", font=("times New Poman", 24), fill="white")
+canvas.create_text(imgx + 375, imgy - 200, text="TIME", tag="time", font=("times New Roman", 24), fill="white")
 # タイマー用ラベルの設定
 time_label = tkinter.Label( font=("times New Roman", 24), bg='orange', fg="white")
 time_label.place(x=imgx + 320, y=imgy - 170)
