@@ -1,5 +1,6 @@
 import tkinter
 import random
+import os
 
 # マウスの使用で使う変数
 mouse_x = 0
@@ -29,8 +30,11 @@ sx = 500 - (imgx/2)
 sy = 350 - (imgx/2)
 
 # 画像リスト
-for i in os.listdir(Img/illustration)
-img_list = ["Img/Img01.png"]
+img_list = []
+path = "img/illustration"
+for i in os.listdir(path):
+    img_list.append(os.path.join(path, i))
+#img_list = ["Img/Img01.png"]
 
 # タイマー用の変数
 tmr = 0
