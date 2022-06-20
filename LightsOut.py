@@ -29,6 +29,7 @@ sx = 500 - (imgx/2)
 sy = 350 - (imgx/2)
 
 # 画像リスト
+for i in os.listdir(Img/illustration)
 img_list = ["Img/Img01.png"]
 
 # タイマー用の変数
