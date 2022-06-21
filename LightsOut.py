@@ -32,6 +32,7 @@ sy = 350 - (imgx/2)
 # 画像リスト
 img_list = []
 path = "img/illustration"
+# 対象のフォルダに含まれる画像情報を取得
 for i in os.listdir(path):
     img_list.append(os.path.join(path, i))
 #img_list = ["Img/Img01.png"]
