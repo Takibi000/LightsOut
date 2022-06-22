@@ -1,6 +1,7 @@
 import tkinter
 import random
 import os
+import copy
 
 # マウスの使用で使う変数
 mouse_x = 0
@@ -8,18 +9,10 @@ mouse_y = 0
 mouse_c = 0
 
 # パネルの管理用のリスト
-value = [
-    [ 1, 1, 1, 1, 1,],
-    [ 1, 1, 1, 1, 1,],
-    [ 1, 1, 1, 1, 1,],
-    [ 1, 1, 1, 1, 1,],
-    [ 1, 1, 1, 1, 1,],
-    ]
+p_val = [31, 31, 31, 31, 14]
 
-# パネルのパターン
-pattern = [
-    [ 0, 1, 1, 1, 0],
-]
+# 初期パネル用リスト
+o_val = copy.deepcopy(p_val)
 
 # 画像の中心位置のｘ，ｙ
 imgx = 500
@@ -77,34 +70,19 @@ def game_main():
         mouse_c = 0
         # マウスの座標からパネルの番号の算出
         select_x = int((mouse_x-sx)/100)
-        select_y = int((mouse_y-sy)/100)
-        # クリックされたパネルの反転
-        if value[select_y][select_x] == 1:
-            value[select_y][select_x] = 0
-        else:
-            value[select_y][select_x] = 1
-        # 周囲パネルの反転
-        for c in range(4):
-            if c == 0 and select_y >= 1:
-                if value[select_y-1][select_x] == 1:
-                    value[select_y-1][select_x] = 0
-                else:
-                    value[select_y-1][select_x] = 1
-            elif c == 1 and select_y <= 3:
-                if value[select_y+1][select_x] == 1:
-                    value[select_y+1][select_x] = 0
-                else:
-                    value[select_y+1][select_x] = 1
-            elif c == 2 and select_x <= 3:
-                if value[select_y][select_x+1] == 1:
-                    value[select_y][select_x+1] = 0
-                else:
-                    value[select_y][select_x+1] = 1
-            elif c == 3 and select_x >= 1:
-                if value[select_y][select_x-1] == 1:
-                    value[select_y][select_x-1] = 0
-                else:
-                    value[select_y][select_x-1] = 1
+        select_y = int((mouse_y-sy)/100) 
+        # X座標の番号からリスト変更用のマスクの作成       
+        px = 2 ** (4 - select_x)
+        for n, i in enumerate(p_val):
+            # Y座標が一致している場合にpxと左右に１を立てたマスクでXOR
+            if n == select_y:
+                p_val[n] ^= (px + (px//2) + ((px*2)%32))
+            # Y座標が一致した場合にpxでXOR
+            elif n == (select_y - 1) or n == (select_y + 1):
+                p_val[n] ^= px
+            # 上記以外は何もしない
+            else:
+                continue
     elif mouse_x >= (imgx + 300) and mouse_x <= (imgx + 450) and mouse_y >= (imgy + 40) and mouse_y <= (imgy + 120):
         b_color = "powderblue"
         if mouse_c == 1:
@@ -131,12 +109,12 @@ def draw_p():
     p_count = 0
     # tileタグの図形の削除
     canvas.delete("tile")
-    # ｙに０～４を入れて下記のプログラムを実行
-    for y in range(5):
-        # ｘに０～４を入れて下記のプログラムを実行
-        for x in range(5):
-            # 上記の二重ループで画像の上に５×５でvalueの１の位置にパネルを描画
-            if value[y][x] == 1:
+    for y, i in enumerate(p_val):
+        # リストの数字を５桁の２進数に変換
+        w = bin(i).replace('0b', '')
+        w = ((5-len(w))*'0')+w
+        for x, j in enumerate(w):
+            if int(j) == 1:
                 canvas.create_rectangle(x*100+sx, y*100+sy, x*100+100 +sx, y*100+100+sy, fill="lightgray", width=0, tag="tile")
                 p_count += 1
     # 描画するパネルが無い場合クリアなので終了フラグを立てる
@@ -159,12 +137,17 @@ def draw_life():
 
 # パネルのリセット
 def p_create():
+    global p_val
+    p_val = copy.deepcopy(o_val)
+    draw_p()
+    '''
     global value
     for y in range(5):
         for x in range(5):
             value[y][x] = 1
     for x in range(5):
         value[4][x] = pattern[0][x]
+    '''
 
 def reset_btn_draw():
     canvas.delete("BTN")
