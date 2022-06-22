@@ -140,14 +140,6 @@ def p_create():
     global p_val
     p_val = copy.deepcopy(o_val)
     draw_p()
-    '''
-    global value
-    for y in range(5):
-        for x in range(5):
-            value[y][x] = 1
-    for x in range(5):
-        value[4][x] = pattern[0][x]
-    '''
 
 def reset_btn_draw():
     canvas.delete("BTN")
